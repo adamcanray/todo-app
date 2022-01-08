@@ -34,15 +34,8 @@ export function* taskListWorker() {
   );
   const mock = yield* selectTS((state: RootState) => state.task.mock);
 
-  let tasks: any = {
-    1: {
-      id: 1,
-      title: "Make a meal",
-      description: "lorem ipsum",
-      status: 0,
-      createdAt: "2019-11-15 18:00",
-    },
-  };
+  let tasks: any = {};
+
   taskListData.forEach((el) => {
     tasks[el.id] = el;
   });
