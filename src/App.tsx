@@ -1,25 +1,20 @@
-import { Box, Button, Typography } from "@mui/material";
-import { useEffect } from "react";
-import { task_action } from "./application/saga/task";
-import { RootState, useAppDispatch, useAppSelector } from "./application/store";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import ThemedSuspenseFallback from "./components/ThemedSuspendFallback";
+
+const TaskPage = lazy(() => import("./pages/Task"));
+const NoMatch = lazy(() => import("./pages/NoMatch"));
 
 function App() {
-  const dispatch = useAppDispatch();
-  const taskListData = useAppSelector(
-    (state: RootState) => state.task.list.response.success.data
-  );
-  useEffect(() => {
-    dispatch(task_action.taskList());
-  }, [dispatch]);
   return (
-    <Box>
-      <Typography variant="subtitle1">subtitle</Typography>
-      <Typography>body1</Typography>
-      <Button>Button</Button>
-      {taskListData.map((e, i) => (
-        <Typography>{e.title}</Typography>
-      ))}
-    </Box>
+    <Suspense fallback={<ThemedSuspenseFallback />}>
+      <Routes>
+        <Route path="/">
+          <Route index element={<TaskPage />} />
+        </Route>
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+    </Suspense>
   );
 }
 
