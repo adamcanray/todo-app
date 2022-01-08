@@ -18,6 +18,11 @@ interface ItaskState {
       failure: boolean;
     };
   };
+  mock: {
+    tasks: any;
+    columns: any;
+    columnOrder: Array<string>;
+  };
 }
 
 const taskState: ItaskState = {
@@ -36,6 +41,22 @@ const taskState: ItaskState = {
       success: false,
       failure: false,
     },
+  },
+  mock: {
+    tasks: {},
+    columns: {
+      "column-1": {
+        id: "column-1",
+        title: "To do",
+        taskIds: [],
+      },
+      "column-2": {
+        id: "column-2",
+        title: "Done",
+        taskIds: [],
+      },
+    },
+    columnOrder: ["column-1", "column-2"],
   },
 };
 
@@ -63,6 +84,29 @@ export const taskSlice = createSlice({
       action: PayloadAction<{ status: string; message: string }>
     ) => {
       state.list.response.failure = action.payload;
+    },
+
+    // taskMockTasksSetter: (state, action: PayloadAction<TTask>) => {
+    //   state.mock.tasks[action.payload.id] = action.payload;
+    // },
+    // taskMockColumnsSetter: (
+    //   state,
+    //   action: PayloadAction<{
+    //     id: string;
+    //     title: "stirng";
+    //     taskIds: Array<string>;
+    //   }>
+    // ) => {
+    //   state.mock.columns[action.payload.id] = action.payload;
+    // },
+    // taskMockColumnOrderSetter: (
+    //   state,
+    //   action: PayloadAction<Array<string>>
+    // ) => {
+    //   state.mock.columnOrder = action.payload;
+    // },
+    taskMockSetter: (state, action: PayloadAction<any>) => {
+      state.mock = action.payload;
     },
   },
 });

@@ -9,6 +9,11 @@ export const {
   taskListFlowSuccessSetter,
   taskListResponseFailureSetter,
   taskListResponseSuccessSetter,
+  // taskMockColumnOrderSetter,
+  // taskMockColumnsSetter,
+  // taskMockTasksSetter,
+  taskMockSetter,
 } = taskSlice.actions;
 
 export const taskList = createAction(`${sliceName}/taskList`);
+export const taskMock = createAction(`${sliceName}/taskMock`);
